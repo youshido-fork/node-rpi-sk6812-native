@@ -1,11 +1,8 @@
 #include <nan.h>
-
 #include <v8.h>
-
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-
 #include <algorithm>
 
 extern "C" {
@@ -17,6 +14,9 @@ using namespace v8;
 #define DEFAULT_TARGET_FREQ     800000
 #define DEFAULT_GPIO_PIN        18
 #define DEFAULT_DMANUM          5
+#define DEFAULT_INVERT          0
+#define DEFAULT_COUNT           0
+#define DEFAULT_BRIGHTNESS      24
 #define DEFAULT_LED_STRIP       WS2812_STRIP
 
 ws2811_t ledstring;
@@ -48,7 +48,6 @@ void render(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   uint32_t* data = (uint32_t*) node::Buffer::Data(buffer);
   memcpy(ledstring.channel[0].leds, data, numBytes);
 
-  ws2811_wait(&ledstring);
   ws2811_render(&ledstring);
 
   info.GetReturnValue().SetUndefined();
@@ -63,9 +62,9 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   ledstring.dmanum  = DEFAULT_DMANUM;
 
   channel0data.gpionum = DEFAULT_GPIO_PIN;
-  channel0data.invert = 0;
-  channel0data.count = 0;
-  channel0data.brightness = 255;
+  channel0data.invert = DEFAULT_INVERT;
+  channel0data.count = DEFAULT_COUNT;
+  channel0data.brightness = DEFAULT_BRIGHTNESS;
   channel0data.strip_type = DEFAULT_LED_STRIP;
 
   ledstring.channel[0] = channel0data;
@@ -170,8 +169,17 @@ void initialize(Handle<Object> exports) {
   NAN_EXPORT(exports, reset);
   NAN_EXPORT(exports, render);
   NAN_EXPORT(exports, setBrightness);
+
+  v8::Local<v8::Object> stripTypes = Nan::New<v8::Object>();
+  Nan::Set(stripTypes, v8::String::NewFromUtf8(Nan::GetCurrentContext()->GetIsolate(), "WS2812"), Nan::New((int)WS2812_STRIP));
+  Nan::Set(stripTypes, v8::String::NewFromUtf8(Nan::GetCurrentContext()->GetIsolate(), "SK6812"), Nan::New((int)SK6812_STRIP));
+  Nan::Set(stripTypes, v8::String::NewFromUtf8(Nan::GetCurrentContext()->GetIsolate(), "SK6812W"), Nan::New((int)SK6812W_STRIP));
+
+  // exports.STRIP_TYPES = {
+  //   WS2812: 0x00,
+  //   ...
+  // }
+  Nan::Set(exports, v8::String::NewFromUtf8(Nan::GetCurrentContext()->GetIsolate(), "STRIP_TYPES"), stripTypes);
 }
 
 NODE_MODULE(rpi_ws281x, initialize)
-
-// vi: ts=2 sw=2 expandtab
