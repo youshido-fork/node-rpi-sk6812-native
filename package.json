@@ -1,6 +1,6 @@
 {
   "name": "rpi-sk6812-native",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "(raspberry-pi *only*) native bindings to control a strip of WS281x or SK6812 LEDs with node.js",
   "keywords": [
     "raspberry",
