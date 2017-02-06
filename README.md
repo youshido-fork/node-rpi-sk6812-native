@@ -1,25 +1,23 @@
 # control ws281x-LEDs with node.js
 
-> if you happen to know C++ and node/iojs/V8, I would really appreciate any help 
-> and feedback on this module.
-> There is certainly lots of room for improvement.
-
 This module provides native bindings to the
 [rpi_ws281x](https://github.com/jgarff/rpi_ws281x) library by Jeremy Garff to
 provide a very basic set of functions to write data to a strip of
 ws2811/ws2812 LEDs. **this will only run on the Raspberry Pi.**
 
+NOTE: This is a fork of [node-rpi-ws281x-native](https://github.com/beyondscreen/node-rpi-ws281x-native) with additional support for SK6812 LEDs.
+
 ## setup
 
 this module is available via npm:
 
-    npm install rpi-ws281x-native
+    npm install rpi-sk6812-native
 
 if you prefer installing from source:
 
     npm install -g node-gyp
-    git clone --recursive https://github.com/beyondscreen/node-rpi-ws281x-native.git
-    cd rpi-ws281x-native
+    git clone --recursive https://github.com/n-johnson/node-rpi-sk6812-native.git
+    cd node-rpi-sk6812-native
     npm install
     node-gyp rebuild
 

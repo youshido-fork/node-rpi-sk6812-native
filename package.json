@@ -1,11 +1,12 @@
 {
-  "name": "rpi-ws281x-native",
+  "name": "rpi-sk6812-native",
   "version": "0.8.1",
-  "description": "(raspberry-pi *only*) native bindings to control a strip of WS281x-LEDs with node.js",
+  "description": "(raspberry-pi *only*) native bindings to control a strip of WS281x or SK6812 LEDs with node.js",
   "keywords": [
     "raspberry",
     "ws2811",
     "ws2812",
+    "sk6812",
     "led",
     "hardware"
   ],
@@ -15,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/beyondscreen/node-rpi-ws281x-native.git"
+    "url": "git://github.com/n-johnson/node-rpi-sk6812-native.git"
   },
   "author": "Martin Schuhfuss <m.schuhfuss@gmail.com>",
-  "homepage": "https://github.com/beyondscreen/node-rpi-ws281x-native",
-  "bugs": "https://github.com/beyondscreen/node-rpi-ws281x-native/issues",
+  "homepage": "https://github.com/n-johnson/node-rpi-sk6812-native",
+  "bugs": "https://github.com/n-johnson/node-rpi-sk6812-native/issues",
   "license": "MIT",
   "dependencies": {
     "nan": "^2.0.9"
