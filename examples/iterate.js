@@ -4,7 +4,8 @@ var NUM_LEDS = parseInt(process.argv[2], 10) || 10,
     pixelData = new Uint32Array(NUM_LEDS);
 
 ws281x.init(NUM_LEDS, {
-    strip_type: ws281x.STRIP_TYPES.SK6812W
+    strip_type: ws281x.STRIP_TYPES.SK6812W,
+    brightness: 255
 });
 
 // ---- trap the SIGINT and reset before exit
@@ -21,7 +22,7 @@ setInterval(function () {
   while(i--) {
       pixelData[i] = 0;
   }
-  pixelData[offset] = 0xffffff;
+  pixelData[offset] = 0xffffffff;
 
   offset = (offset + 1) % NUM_LEDS;
   ws281x.render(pixelData);
