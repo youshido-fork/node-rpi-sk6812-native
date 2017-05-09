@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
 declare enum stripType {
-    WS2812_STRIP,
-    SK6812_STRIP,
-    SK6812W_STRIP,
+    WS2812,
+    SK6812,
+    SK6812W,
 }
 
 interface ws281xOptions {
@@ -84,9 +84,9 @@ declare class ws281x extends NodeJS.EventEmitter {
      * available stripTypes
      */
     STRIP_TYPES: {
-        WS2812_STRIP: 0,
-        SK6812_STRIP: 1,
-        SK6812W_STRIP: 2,
+        WS2812: 0,
+        SK6812: 1,
+        SK6812W: 2,
     };
 
     /**
