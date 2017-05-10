@@ -55,7 +55,7 @@ declare class ws281x extends NodeJS.EventEmitter {
      *
      * @param mapping  the mapping, indexed by destination.
      */
-    setIndexMapping(mapping: Array<number>): void;
+    setIndexMapping(mapping: Uint16Array | Array<number>): void;
 
     /**
      * send data to the LED-strip.
