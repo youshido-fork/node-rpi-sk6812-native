@@ -26,5 +26,7 @@
   "dependencies": {
     "nan": "^2.0.9"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "~7.0.18"
+  }
 }
