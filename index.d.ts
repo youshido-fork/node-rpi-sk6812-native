@@ -1,13 +1,24 @@
 /// <reference types="node" />
-declare module ws281x {
 
-    export enum StripType {
+
+declare module 'rpi-sk6812-native' {
+
+    enum StripType {
         WS2812,
         SK6812,
         SK6812W,
     }
 
-    export type Options = {
+    type StripTypes = {
+        WS2812: StripType,
+        SK6812: StripType,
+        SK6812W: StripType,
+    }
+
+
+    type MappingFunction = (width: number, height: number) => Uint16Array;
+
+    type Options = {
         /**
          * PWM output frequency
          */
@@ -39,65 +50,58 @@ declare module ws281x {
         gammaCorrection?: boolean,
     }
 
-    export class ws281x extends NodeJS.EventEmitter {
 
-        /**
-         * configures PWM and DMA for sending data to the LEDs
-         *
-         * @param numLeds  number of LEDs to be controlled
-         * @param options  (acutally only tested with default-values)
-         *                 intialization-options for the library
-         */
-        init(numLeds: number, options?: Options): void;
 
-        /**
-         * register a mapping to manipulate array-indices within the
-         * data-array before rendering.
-         *
-         * @param mapping  the mapping, indexed by destination.
-         */
-        setIndexMapping(mapping: Uint16Array | Array<number>): void;
+    /**
+     * configures PWM and DMA for sending data to the LEDs
+     *
+     * @param numLeds  number of LEDs to be controlled
+     * @param options  (acutally only tested with default-values)
+     *                 intialization-options for the library
+     */
+    export function init(numLeds: number, options?: Options): void;
 
-        /**
-         * send data to the LED-strip.
-         *
-         * @param data  the pixel-data, 24(rgb) / 32(rgbw) bit per pixel in
-         *              (W)RGB-format (0x00ff0000 is red).
-         * 
-         * @return data as it was sent to the LED-strip
-         */
-        render(data: Uint32Array): Uint32Array;
+    /**
+     * register a mapping to manipulate array-indices within the
+     * data-array before rendering.
+     *
+     * @param mapping  the mapping, indexed by destination.
+     */
+    export function setIndexMapping(mapping: Uint16Array | Array<number>): void;
 
-        /**
-         * Brightness gets mapped by this value
-         *
-         * @param brightness  (0-255) 
-         */
-        setBrightness(brightness: number): void;
+    /**
+     * send data to the LED-strip.
+     *
+     * @param data  the pixel-data, 24(rgb) / 32(rgbw) bit per pixel in
+     *              (W)RGB-format (0x00ff0000 is red).
+     * 
+     * @return data as it was sent to the LED-strip
+     */
+    export function render(data: Uint32Array): Uint32Array;
 
-        /**
-         * clears all LEDs, resets the PWM and DMA-parts and deallocates
-         * all internal structures.
-         */
-        reset(): void;
+    /**
+     * Brightness gets mapped by this value
+     *
+     * @param brightness  (0-255) 
+     */
+    export function setBrightness(brightness: number): void;
 
-        /**
-         e available StripTypes
-         */
-        STRIP_TYPES: {
-            WS2812:StripType,
-            SK6812:StripType,
-            SK6812W:StripType,
-        };
+    /**
+     * clears all LEDs, resets the PWM and DMA-parts and deallocates
+     * all internal structures.
+     */
+    export function reset(): void;
 
-        /**
-         * Map generators
-         */
-        indexMapping: {
-            alternatingMatrix(width: number, height: number): Uint16Array;
-            mirrorMatrixX(width: number, height: number): Uint16Array;
-        };
-    }
+    /**
+     * available StripTypes
+     */
+    export const STRIP_TYPES:StripTypes;
+
+    /**
+     * Map generators
+     */
+    export type indexMapping = {
+        alternatingMatrix:MappingFunction,
+        mirrorMatrixX:MappingFunction,
+    };
 }
-
-export = new ws281x.ws281x();
