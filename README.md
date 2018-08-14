@@ -16,7 +16,7 @@ this module is available via npm:
 if you prefer installing from source:
 
     npm install -g node-gyp
-    git clone --recursive https://github.com/n-johnson/node-rpi-sk6812-native.git
+    git clone --recursive https://github.com/youshido-fork/node-rpi-sk6812-native
     cd node-rpi-sk6812-native
     npm install
     node-gyp rebuild
