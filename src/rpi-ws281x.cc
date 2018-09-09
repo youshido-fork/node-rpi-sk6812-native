@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <iostream>
 #include <algorithm>
 
 extern "C" {
@@ -10,6 +11,7 @@ extern "C" {
 }
 
 using namespace v8;
+using namespace std;
 
 #define DEFAULT_TARGET_FREQ     800000
 #define DEFAULT_GPIO_PIN        18
@@ -121,6 +123,7 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   int err = ws2811_init(&ledstring);
 
   if(err) {
+      std::cout << "There is an ERROR" << err;
       return Nan::ThrowError("init(): initialization failed. sorry – no idea why.");
   }
   info.GetReturnValue().SetUndefined();
