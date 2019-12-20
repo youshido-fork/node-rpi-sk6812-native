@@ -3,4 +3,4 @@
 #     url = https://github.com/youshido-fork/rpi_ws281x
 [submodule "src/rpi_ws281x"]
 	path = src/rpi_ws281x
-	url = https://github.com/youshido-fork/rpi_ws281x
+	url = https://github.com/jgarff/rpi_ws281x
